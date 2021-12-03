@@ -20,6 +20,11 @@ function createNewNote(body, notesArray) {
   return note;
 }
 
+function findById(id, notesArray) {
+  const result = notesArray.filter((note) => note.id === id)[0];
+  return result;
+}
+
 // GET /api/notes - read db.json and return all saved notes as json
 app.get("/api/notes", (req, res) => {
   res.json(notes);
@@ -34,6 +39,11 @@ app.post("/api/notes", (req, res) => {
 });
 
 // DELETE /api/notes/:id - read all notes, remove note qith given id, rewrite all anotes to db.json
+app.get("/api/notes/:id", (req, res) => {
+  const result = findById(req.params.id, notes);
+
+  res.json(result);
+});
 
 // GET /notes - return notes file
 app.get("/notes", (req, res) => {
