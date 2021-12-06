@@ -39,10 +39,15 @@ app.post("/api/notes", (req, res) => {
 });
 
 // DELETE /api/notes/:id - read all notes, remove note qith given id, rewrite all anotes to db.json
-app.get("/api/notes/:id", (req, res) => {
+app.delete("/api/notes/:id", (req, res) => {
   const result = findById(req.params.id, notes);
-
-  res.json(result);
+  const index = notes.indexOf(result);
+  if (result) {
+    notes.splice(index, 1);
+    res.json(notes);
+  } else {
+    res.send(404);
+  }
 });
 
 // GET /notes - return notes file
